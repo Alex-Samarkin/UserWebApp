@@ -1,0 +1,13 @@
+﻿<div class="alert-secondary">
+    <input id="Text1" type="text" @bind="User.SurName"/>
+    <input id="Text2" type="text" @bind="User.Name"/>
+    <input id="Text3" type="text" @bind="User.Middlename"/>
+    <input id="Text4" type="number" @bind="User.Age" />
+
+</div>
+
+@code {
+    [Parameter]
+    public User User { get; set; } = new User();
+
+}

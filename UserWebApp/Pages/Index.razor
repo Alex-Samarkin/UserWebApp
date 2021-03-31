@@ -1,0 +1,64 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<input id="Text1" type="number" @bind="Id"/>
+<input id="Button1" type="button" value="Редактировать" @onclick="GetUser" />
+<User_comp User=@Users[Id] AsCard="false"></User_comp>
+<Useredit_comp User=@Users[Id]></Useredit_comp>
+<input id="Button1" type="button" value="Ok" @onclick="SetUser" />
+
+<hr />
+@foreach (var user in Users)
+{
+    <User_comp User=@user AsCard="true"></User_comp>
+}
+
+
+@code
+{
+    User u = new User()
+    {
+        SurName = "Иванов",
+        Name = "Иван",
+        Middlename = "Петрович",
+        Age = 24,
+        Address1 = "180000, г. Псков",
+        Address2 = "ул. Ленина, д. 2, кв. 16",
+        Id = 1
+    };
+
+    public List<User> Users { get; set; } = new List<User>();
+
+    public void GenerateUsers()
+    {
+        int n = 150;
+        for (int i = 0; i < n; i++)
+        {
+            Users.Add(
+                new User() { SurName = "Иванов", Name = "Иван", Middlename = "Петрович", Age = 24, Address1 = "180000, г. Псков", Address2 = "ул. Ленина, д. 2, кв. 16", Id = i }
+                );
+        }
+    }
+
+    public int Id { get; set; } = 1;
+
+    void GetUser()
+    {
+        u = Users[Id];
+    }
+
+    void SetUser()
+    {
+        Users[Id] = u;
+    }
+
+    protected override void OnInitialized()
+    {
+        GenerateUsers();
+    }
+}
